@@ -19,6 +19,7 @@ const Header: React.FC = () => {
           <div className="flex items-center">
             <button 
               type="button"
+              title="Toggle sidebar"
               className="text-gray-500 hover:text-gray-600 lg:hidden"
               onClick={() => document.body.classList.toggle('sidebar-open')}
             >
