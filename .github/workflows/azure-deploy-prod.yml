@@ -1,0 +1,52 @@
+name: Azure Production Web App Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20.x'
+  AZURE_WEBAPP_NAME: nova-hcm    # Production web app name
+  AZURE_WEBAPP_PACKAGE_PATH: 'src/nova.web/build'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: 'src/nova.web/package-lock.json'
+
+    - name: Install Dependencies
+      run: |
+        cd src/nova.web
+        npm install
+
+    - name: Build React App
+      run: |
+        cd src/nova.web
+        npm run build
+      env:
+        CI: false
+        REACT_APP_API_URL: 'https://nova-hcm.azurewebsites.net/api'
+        REACT_APP_ENVIRONMENT: 'production'
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_PROD }}
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}

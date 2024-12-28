@@ -12,9 +12,10 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { arrayMove } from '@dnd-kit/sortable';
 import TreeItem from '../components/employees/TreeItem';
-import { Employee, TreeItem as TreeItemType } from '../types/Employee';
+import { Employee, TreeItem as TreeItemType } from '../types/employee';
+import Modal from '../components/common/Modal';
+import AddEmployeeForm from '../components/employees/AddEmployeeForm';
 
 // Mock data - replace with API call
 const mockEmployees: Employee[] = [
@@ -45,7 +46,6 @@ const mockEmployees: Employee[] = [
     department: 'Engineering',
     managerId: '2',
   },
-  // Add more employees as needed
 ];
 
 const buildTree = (
@@ -74,11 +74,18 @@ const flattenTree = (items: TreeItemType[]): TreeItemType[] => {
 const Employees: React.FC = () => {
   const [items, setItems] = useState<TreeItemType[]>(buildTree(mockEmployees));
   const [searchQuery, setSearchQuery] = useState('');
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor)
   );
+
+  // Get unique departments from existing employees
+  const departments = Array.from(new Set(mockEmployees.map(emp => emp.department)));
+
+  // Get all employees that can be managers
+  const potentialManagers = mockEmployees;
 
   const flattenedItems = flattenTree(items);
   const filteredItems = searchQuery
@@ -89,37 +96,37 @@ const Employees: React.FC = () => {
       )
     : flattenedItems;
 
-    const handleDragEnd = (event: DragEndEvent) => {
-      const { active, over } = event;
-  
-      if (!over || active.id === over.id) {
-        return;
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) {
+      return;
+    }
+
+    const activeItem = flattenedItems.find(item => item.id === active.id);
+    const overItem = flattenedItems.find(item => item.id === over.id);
+
+    if (!activeItem || !overItem) {
+      return;
+    }
+
+    // Collect all employees from the tree structure
+    const getAllEmployees = (items: TreeItemType[]): Employee[] => {
+      return items.reduce<Employee[]>((acc, item) => {
+        return [...acc, item.data, ...getAllEmployees(item.children)];
+      }, []);
+    };
+
+    // Update the managerId in your data structure
+    const allEmployees = getAllEmployees(items);
+    const updatedEmployees = allEmployees.map(emp => {
+      if (emp.id === activeItem.data.id) {
+        return { ...emp, managerId: overItem.data.id };
       }
-  
-      const activeItem = flattenedItems.find(item => item.id === active.id);
-      const overItem = flattenedItems.find(item => item.id === over.id);
-  
-      if (!activeItem || !overItem) {
-        return;
-      }
-  
-      // Collect all employees from the tree structure
-      const getAllEmployees = (items: TreeItemType[]): Employee[] => {
-        return items.reduce<Employee[]>((acc, item) => {
-          return [...acc, item.data, ...getAllEmployees(item.children)];
-        }, []);
-      };
-  
-      // Update the managerId in your data structure
-      const allEmployees = getAllEmployees(items);
-      const updatedEmployees = allEmployees.map(emp => {
-        if (emp.id === activeItem.data.id) {
-          return { ...emp, managerId: overItem.data.id };
-        }
-        return emp;
-      });
-  
-      setItems(buildTree(updatedEmployees));
+      return emp;
+    });
+
+    setItems(buildTree(updatedEmployees));
   };
 
   const handleCollapse = (itemId: string) => {
@@ -136,6 +143,18 @@ const Employees: React.FC = () => {
     };
 
     setItems(updateCollapsed(items));
+  };
+
+  const handleAddEmployee = (employeeData: Omit<Employee, 'id'>) => {
+    // In a real app, this would be an API call
+    const newEmployee: Employee = {
+      ...employeeData,
+      id: `emp-${Date.now()}`, // Generate a unique ID (use proper UUID in production)
+    };
+
+    mockEmployees.push(newEmployee);
+    setItems(buildTree(mockEmployees));
+    setIsAddModalOpen(false);
   };
 
   return (
@@ -165,7 +184,10 @@ const Employees: React.FC = () => {
               />
             </svg>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button 
+            onClick={() => setIsAddModalOpen(true)}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
             Add Employee
           </button>
         </div>
@@ -192,6 +214,19 @@ const Employees: React.FC = () => {
           </SortableContext>
         </DndContext>
       </div>
+
+      <Modal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        title="Add New Employee"
+      >
+        <AddEmployeeForm
+          onSubmit={handleAddEmployee}
+          onCancel={() => setIsAddModalOpen(false)}
+          managers={potentialManagers}
+          departments={departments}
+        />
+      </Modal>
     </div>
   );
 };

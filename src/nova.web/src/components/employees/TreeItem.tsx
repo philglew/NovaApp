@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { TreeItem } from '../../types/Employee';
+import { TreeItem } from '../../types/employee';
 
 interface Props {
   item: TreeItem;
