@@ -1,0 +1,51 @@
+name: Deploy Customer Instance
+
+on:
+  workflow_dispatch:
+    inputs:
+      customerName:
+        description: 'Customer Name (lowercase, no spaces)'
+        required: true
+      environment:
+        description: 'Environment (dev/prod)'
+        required: true
+        default: 'dev'
+
+env:
+  AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION }}
+  SQL_ADMIN_PASSWORD: ${{ secrets.SQL_ADMIN_PASSWORD }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy Customer Database
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
+        resourceGroupName: rg-nova-${{ github.event.inputs.environment }}
+        template: ./infrastructure/customer/customer-database.bicep
+        parameters: >
+          customerName=${{ github.event.inputs.customerName }}
+          sqlServerName=${{ secrets.SQL_SERVER_NAME }}
+
+    - name: Deploy Database Schema
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
+        resourceGroupName: rg-nova-${{ github.event.inputs.environment }}
+        template: ./infrastructure/customer/schema.bicep
+        parameters: >
+          sqlServerName=${{ secrets.SQL_SERVER_NAME }}
+          databaseName=novahcm-${{ github.event.inputs.customerName }}
+          administratorLogin=${{ secrets.SQL_ADMIN_USERNAME }}
+          administratorLoginPassword=${{ secrets.SQL_ADMIN_PASSWORD }}
