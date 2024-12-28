@@ -9,12 +9,14 @@ const Employees = React.lazy(() => import('../pages/Employees'));
 const Departments = React.lazy(() => import('../pages/Departments'));
 const Settings = React.lazy(() => import('../pages/Settings'));
 const Login = React.lazy(() => import('../pages/Login'));
+const Appraisals = React.lazy(() => import('../pages/Appraisals'));
+const Performance = React.lazy(() => import('../pages/Performance'));
+const Absence = React.lazy(() => import('../pages/Absence'));
 
 // Protected Route wrapper
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Temporarily bypass authentication check
   return <>{children}</>;
- // const isAuthenticated = useIsAuthenticated();
- // return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
 };
 
 const router = createBrowserRouter([
@@ -51,6 +53,30 @@ const router = createBrowserRouter([
         element: (
           <React.Suspense fallback={<div>Loading...</div>}>
             <Departments />
+          </React.Suspense>
+        ),
+      },
+      {
+        path: 'appraisals',
+        element: (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <Appraisals />
+          </React.Suspense>
+        ),
+      },
+      {
+        path: 'performance',
+        element: (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <Performance />
+          </React.Suspense>
+        ),
+      },
+      {
+        path: 'absence',
+        element: (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <Absence />
           </React.Suspense>
         ),
       },

@@ -27,7 +27,11 @@ const Header: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
-            <span className="ml-2 text-xl font-semibold lg:ml-0">Nova HCM</span>
+              <img 
+    src="/images/NovaDark.png" 
+    alt="Nova HCM Logo" 
+    className="h-8 w-auto" // Adjust height as needed
+  />
           </div>
 
           <div className="flex items-center">
