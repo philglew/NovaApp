@@ -29,6 +29,8 @@ jobs:
     - name: Install Dependencies
       run: |
         cd src/nova.web
+        npm install -g react-scripts
+        chmod +x node_modules/.bin/react-scripts
         npm install
 
     - name: Build React App
