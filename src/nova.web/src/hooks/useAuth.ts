@@ -50,7 +50,8 @@ export const useAuth = () => {
       try {
         const response = await api.get('/auth/me');
         setState({ user: response.data as User, loading: false, error: null });
-      } catch (error) {
+
+    } catch (error) {
         localStorage.removeItem('token');
         setState({ user: null, loading: false, error: null });
       }
