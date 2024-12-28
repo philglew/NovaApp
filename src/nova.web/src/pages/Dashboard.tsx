@@ -8,7 +8,8 @@ import {
   Tooltip,
   ResponsiveContainer,
   BarChart,
-  Bar
+  Bar,
+  Legend
 } from 'recharts';
 
 // Mock data - replace with actual API calls later
@@ -19,6 +20,15 @@ const employeeData = [
   { month: 'Apr', count: 175 },
   { month: 'May', count: 180 },
   { month: 'Jun', count: 190 }
+];
+
+const absenceData = [
+  { month: 'Jan', sickDays: 12, vacationDays: 15 },
+  { month: 'Feb', sickDays: 8, vacationDays: 10 },
+  { month: 'Mar', sickDays: 15, vacationDays: 8 },
+  { month: 'Apr', sickDays: 10, vacationDays: 12 },
+  { month: 'May', sickDays: 7, vacationDays: 18 },
+  { month: 'Jun', sickDays: 9, vacationDays: 22 },
 ];
 
 const departmentData = [
@@ -157,6 +167,26 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
+
+        {/* Absence Trend Chart */}
+    <div className="bg-white overflow-hidden shadow rounded-lg">
+      <div className="p-5">
+        <h3 className="text-lg font-medium text-gray-900">Absence Trends</h3>
+        <div className="mt-4" style={{ height: 300 }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={absenceData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="sickDays" name="Sick Days" fill="#ef4444" />
+              <Bar dataKey="vacationDays" name="Vacation Days" fill="#3b82f6" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+    </div>
 
       {/* Recent Activity */}
       <div className="bg-white shadow rounded-lg">
