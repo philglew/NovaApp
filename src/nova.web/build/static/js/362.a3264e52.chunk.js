@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunknova_web=self.webpackChunknova_web||[]).push([[362],{6362:(e,s,n)=>{n.r(s),n.d(s,{default:()=>c});n(5043);var a=n(579);const c=()=>(0,a.jsx)("div",{children:(0,a.jsx)("h1",{children:"Departments"})})}}]);
+//# sourceMappingURL=362.a3264e52.chunk.js.map

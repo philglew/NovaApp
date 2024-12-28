@@ -1,0 +1,9 @@
+{
+    "short_name": "Nova HCM",
+    "name": "Nova Human Capital Management",
+    "icons": [],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+  }
