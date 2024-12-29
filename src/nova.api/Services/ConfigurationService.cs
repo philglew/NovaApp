@@ -9,7 +9,8 @@ public class ConfigurationService
 
     public ConfigurationService(IConfiguration configuration)
     {
-        var keyVaultUrl = configuration["KeyVault:Url"];
+        var keyVaultUrl = configuration["KeyVault:Url"] 
+            ?? throw new InvalidOperationException("KeyVault URL is not configured");
         _secretClient = new SecretClient(new Uri(keyVaultUrl), new DefaultAzureCredential());
     }
 

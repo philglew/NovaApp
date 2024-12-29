@@ -1,0 +1,16 @@
+C:\temp\NovaApp\src\nova.infrastructure\bin\Debug\net8.0\nova.infrastructure.deps.json
+C:\temp\NovaApp\src\nova.infrastructure\bin\Debug\net8.0\nova.infrastructure.dll
+C:\temp\NovaApp\src\nova.infrastructure\bin\Debug\net8.0\nova.infrastructure.pdb
+C:\temp\NovaApp\src\nova.infrastructure\bin\Debug\net8.0\nova.core.dll
+C:\temp\NovaApp\src\nova.infrastructure\bin\Debug\net8.0\nova.core.pdb
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.infrastructure.csproj.AssemblyReference.cache
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.infrastructure.AssemblyInfoInputs.cache
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.infrastructure.AssemblyInfo.cs
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.infrastructure.csproj.CoreCompileInputs.cache
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.infrastructure.sourcelink.json
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.inf.E65B1D2E.Up2Date
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.infrastructure.dll
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\refint\nova.infrastructure.dll
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.infrastructure.pdb
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\ref\nova.infrastructure.dll

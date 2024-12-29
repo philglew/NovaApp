@@ -1,0 +1,12 @@
+C:\temp\NovaApp\src\nova.core\bin\Debug\net8.0\nova.core.deps.json
+C:\temp\NovaApp\src\nova.core\bin\Debug\net8.0\nova.core.dll
+C:\temp\NovaApp\src\nova.core\bin\Debug\net8.0\nova.core.pdb
+C:\temp\NovaApp\src\nova.core\obj\Debug\net8.0\nova.core.GeneratedMSBuildEditorConfig.editorconfig
+C:\temp\NovaApp\src\nova.core\obj\Debug\net8.0\nova.core.AssemblyInfoInputs.cache
+C:\temp\NovaApp\src\nova.core\obj\Debug\net8.0\nova.core.AssemblyInfo.cs
+C:\temp\NovaApp\src\nova.core\obj\Debug\net8.0\nova.core.csproj.CoreCompileInputs.cache
+C:\temp\NovaApp\src\nova.core\obj\Debug\net8.0\nova.core.sourcelink.json
+C:\temp\NovaApp\src\nova.core\obj\Debug\net8.0\nova.core.dll
+C:\temp\NovaApp\src\nova.core\obj\Debug\net8.0\refint\nova.core.dll
+C:\temp\NovaApp\src\nova.core\obj\Debug\net8.0\nova.core.pdb
+C:\temp\NovaApp\src\nova.core\obj\Debug\net8.0\ref\nova.core.dll

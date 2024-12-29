@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "jhwlUW/OdNqz3Anotxzbvu/r+ZNW9kOjXmgazkZg4XE=",
+  "Source": "nova.api",
+  "BasePath": "_content/nova.api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
