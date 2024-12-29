@@ -14,3 +14,5 @@ C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.infrastructure.dll
 C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\refint\nova.infrastructure.dll
 C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.infrastructure.pdb
 C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\ref\nova.infrastructure.dll
+C:\temp\NovaApp\src\nova.infrastructure\bin\Debug\net8.0\nova.infrastructure.runtimeconfig.json
+C:\temp\NovaApp\src\nova.infrastructure\obj\Debug\net8.0\nova.infrastructure.genruntimeconfig.cache
