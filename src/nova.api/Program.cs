@@ -43,6 +43,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 var port = builder.Configuration["Kestrel:Endpoints:Https:Url"] ?? "https://localhost:7151";
+app.Urls.Add(port);
 
 
 app.Run();
