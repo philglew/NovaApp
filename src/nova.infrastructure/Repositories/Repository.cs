@@ -32,11 +32,23 @@ public abstract class Repository<T> : IRepository<T> where T : class
         return entity;
     }
 
-    public virtual async Task UpdateAsync(T entity)
+public virtual async Task UpdateAsync(T entity)
+{
+    var existing = await _dbSet.FindAsync(GetEntityId(entity));
+    if (existing != null)
     {
-        _dbSet.Update(entity);
+        _context.Entry(existing).CurrentValues.SetValues(entity);
         await _context.SaveChangesAsync();
     }
+}
+
+private static object GetEntityId(T entity)
+{
+    // This assumes your entities have an Id property
+    var idProperty = typeof(T).GetProperty("EmployeeId") ?? 
+                    typeof(T).GetProperty("DepartmentId");
+    return idProperty?.GetValue(entity);
+}
 
     public virtual async Task DeleteAsync(Guid id)
     {

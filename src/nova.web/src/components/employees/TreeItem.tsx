@@ -60,7 +60,7 @@ const TreeItemComponent: React.FC<Props> = ({ item, depth, onCollapse }) => {
         
         <div className="flex items-center flex-1">
           <img
-            src={item.data.imageUrl || `https://ui-avatars.com/api/?name=${item.data.firstName}+${item.data.lastName}`}
+            src={`https://ui-avatars.com/api/?name=${item.data.firstName}+${item.data.lastName}`}
             alt={`${item.data.firstName} ${item.data.lastName}`}
             className="w-8 h-8 rounded-full mr-3"
           />
@@ -75,7 +75,7 @@ const TreeItemComponent: React.FC<Props> = ({ item, depth, onCollapse }) => {
         </div>
         
         <div className="text-sm text-gray-500 ml-4">
-          {item.data.department}
+          {item.data.department?.name || ''}
         </div>
       </div>
     </div>

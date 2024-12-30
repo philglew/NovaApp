@@ -11,13 +11,19 @@ public class DepartmentRepository : Repository<Department>, IDepartmentRepositor
     {
     }
 
+    public override async Task<IEnumerable<Department>> GetAllAsync()
+    {
+        return await _dbSet
+            .Include(d => d.Manager)
+            .Include(d => d.Employees)
+            .Include(d => d.ParentDepartment)
+            .ToListAsync();
+    }
+
     public async Task<IEnumerable<Department>> GetWithEmployeesAsync()
     {
         return await _dbSet
             .Include(d => d.Employees)
-            .Include(d => d.Manager)
-            .Include(d => d.ParentDepartment)
-            .Include(d => d.ChildDepartments)
             .ToListAsync();
     }
 
@@ -25,9 +31,6 @@ public class DepartmentRepository : Repository<Department>, IDepartmentRepositor
     {
         return await _dbSet
             .Include(d => d.Employees)
-            .Include(d => d.Manager)
-            .Include(d => d.ParentDepartment)
-            .Include(d => d.ChildDepartments)
             .FirstOrDefaultAsync(d => d.DepartmentId == id);
     }
 
@@ -35,7 +38,6 @@ public class DepartmentRepository : Repository<Department>, IDepartmentRepositor
     {
         return await _dbSet
             .Where(d => d.ParentDepartmentId == parentId)
-            .Include(d => d.Manager)
             .ToListAsync();
     }
 }
