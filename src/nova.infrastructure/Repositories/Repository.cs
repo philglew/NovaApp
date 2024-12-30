@@ -33,7 +33,7 @@ public abstract class Repository<T> : IRepository<T> where T : class
     }
 
 public virtual async Task UpdateAsync(T entity)
-{
+{   
     var existing = await _dbSet.FindAsync(GetEntityId(entity));
     if (existing != null)
     {
