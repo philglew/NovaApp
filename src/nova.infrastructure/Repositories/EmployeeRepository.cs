@@ -36,4 +36,14 @@ public class EmployeeRepository : Repository<Employee>, IEmployeeRepository
             .Include(e => e.DirectReports)
             .FirstOrDefaultAsync(e => e.EmployeeId == id);
     }
+
+    public async Task<IEnumerable<Employee>> SearchAsync(string query)
+{
+    return await _dbSet
+        .Where(e => 
+            e.FirstName.ToLower().Contains(query) || 
+            e.LastName.ToLower().Contains(query))
+        .Take(10) // Limit results to 10 for performance
+        .ToListAsync();
+}
 }

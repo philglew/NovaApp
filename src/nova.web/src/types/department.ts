@@ -7,10 +7,6 @@ export interface Department {
     parentDepartmentId: string | null;
     createdDate: string;
     modifiedDate: string;
-    
-    // Navigation properties (optional as they might not always be populated)
-    manager?: Employee;
-    parentDepartment?: Department;
-    childDepartments?: Department[];
-    employees?: Employee[];
+    managerName: string | null;
+    employeeCount: number;
 }

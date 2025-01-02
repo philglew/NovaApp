@@ -88,4 +88,27 @@ public class EmployeesController : BaseApiController
         await _employeeRepository.DeleteAsync(id);
         return NoContent();
     }
+
+    [HttpGet("search")]
+public async Task<ActionResult<IEnumerable<Employee>>> SearchEmployees([FromQuery] string query)
+{
+    try
+    {
+        // If query is empty, return empty result
+        if (string.IsNullOrWhiteSpace(query))
+            return Ok(new List<Employee>());
+
+        // Convert query to lowercase for case-insensitive search
+        query = query.ToLower();
+
+        // Search employees where first name or last name contains the query
+        var results = await _employeeRepository.SearchAsync(query);
+        return Ok(results);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error searching employees: {ex.Message}");
+        return StatusCode(500, new { message = "Error searching employees" });
+    }
+}
 }

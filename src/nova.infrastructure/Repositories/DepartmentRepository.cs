@@ -11,14 +11,56 @@ public class DepartmentRepository : Repository<Department>, IDepartmentRepositor
     {
     }
 
-    public override async Task<IEnumerable<Department>> GetAllAsync()
+public override async Task<IEnumerable<Department>> GetAllAsync()
+{
+    try
     {
-        return await _dbSet
+        Console.WriteLine("Starting GetAllAsync in DepartmentRepository");
+        
+        // First get departments with their managers
+        var departments = await _dbSet
             .Include(d => d.Manager)
             .Include(d => d.Employees)
             .Include(d => d.ParentDepartment)
+            .Select(d => new Department
+            {
+                DepartmentId = d.DepartmentId,
+                Name = d.Name,
+                ManagerId = d.ManagerId,
+                ParentDepartmentId = d.ParentDepartmentId,
+                CreatedDate = d.CreatedDate,
+                ModifiedDate = d.ModifiedDate,
+                Manager = d.ManagerId != null ? _context.Set<Employee>()
+                    .FirstOrDefault(e => e.EmployeeId == d.ManagerId) : null,
+                Employees = d.Employees,
+                ParentDepartment = d.ParentDepartment
+            })
             .ToListAsync();
+
+        // Log what we found for debugging
+        foreach (var dept in departments)
+        {
+            Console.WriteLine($"\nDepartment: {dept.Name}");
+            Console.WriteLine($"ManagerId: {dept.ManagerId}");
+            if (dept.Manager != null)
+            {
+                Console.WriteLine($"Manager found: {dept.Manager.FirstName} {dept.Manager.LastName}");
+            }
+            else
+            {
+                Console.WriteLine("No manager found for this department");
+            }
+        }
+
+        return departments;
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error in GetAllAsync: {ex.Message}");
+        Console.WriteLine($"Stack trace: {ex.StackTrace}");
+        throw;
+    }
+}
 
     public async Task<IEnumerable<Department>> GetWithEmployeesAsync()
     {
@@ -40,4 +82,7 @@ public class DepartmentRepository : Repository<Department>, IDepartmentRepositor
             .Where(d => d.ParentDepartmentId == parentId)
             .ToListAsync();
     }
+
+
+
 }

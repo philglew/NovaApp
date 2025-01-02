@@ -21,7 +21,15 @@ const employeeService = {
 
   updateEmployee: async (id: string, employee: Employee): Promise<void> => {
     await axios.put(`${API_URL}/employees/${id}`, employee);
-  }
+  },
+
+  // Add this to your existing employeeService
+searchEmployees: async (query: string): Promise<Employee[]> => {
+  const response = await axios.get(`${API_URL}/employees/search`, {
+      params: { query }
+  });
+  return response.data;
+}
 };
 
 export default employeeService;
